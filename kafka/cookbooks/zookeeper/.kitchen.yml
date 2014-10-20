@@ -1,0 +1,26 @@
+---
+driver:
+  name: vagrant
+
+provisioner:
+  name: chef_solo
+
+platforms:
+  - name: ubuntu-12.04
+  - name: centos-6.4
+
+suites:
+  - name: default
+    run_list:
+      # We only include apt because of an issue installing java where ubuntu 
+      # requires an apt-get update in order to successfully run
+      - recipe[apt]
+      - recipe[apache_zookeeper]
+    attributes:
+      java:
+        jdk_version: "7"
+      zookeeper:
+        zoo.cfg:
+          bogus.for.cfg: value1
+        log4j.properties:
+          bogus.for.log4j: value2
