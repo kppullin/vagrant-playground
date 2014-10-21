@@ -9,16 +9,16 @@ Tested using the Ubuntu 14 LTS virtualbox "box" from https://oss-binaries.phusio
 - Install vagrant: http://www.vagrantup.com/downloads.html
 - Download the Ubuntu 14 LTS box from: https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box
 - Load the Ubuntu box.  We'll do this three times, one for each node in the `Ubuntu14` cluster
-  - vagrant box add Ubuntu14-1 /path/to/ubuntu-14.04-amd64-vbox.box
-  - vagrant box add Ubuntu14-2 /path/to/ubuntu-14.04-amd64-vbox.box
-  - vagrant box add Ubuntu14-3 /path/to/ubuntu-14.04-amd64-vbox.box
+  - `vagrant box add Ubuntu14-1 /path/to/ubuntu-14.04-amd64-vbox.box`
+  - `vagrant box add Ubuntu14-2 /path/to/ubuntu-14.04-amd64-vbox.box`
+  - `vagrant box add Ubuntu14-3 /path/to/ubuntu-14.04-amd64-vbox.box`
 
 - Run vagrant
-  - cd /path/to/vagrant-playground/kafka
-  - vagrant up
+  - `cd /path/to/vagrant-playground/kafka`
+  - `vagrant up`
 
 ## Notes
 
-The three nodes are configured to use the IP Addresses: 192.168.50.2, 192.168.50.3, and 192.168.50.4.
+The three nodes are configured to use the IP Addresses: `192.168.50.2`, `192.168.50.3`, and `192.168.50.4`.
 
 You can SSH to these nodes using the defaultm username: `vagrant` and password: `vagrant`.
