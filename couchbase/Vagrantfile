@@ -13,7 +13,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   #config.vm.box = "Ubuntu14-Cluster"
 
   config.vm.define "ubuntu14_1" do |ubuntu14_1|
-    ubuntu14_1.vm.box = "Ubuntu14-1"
+    ubuntu14_1.vm.box = "Ubuntu14"
     ubuntu14_1.vm.network "private_network", ip: "192.168.50.2"
     ubuntu14_1.vm.network "forwarded_port", guest: 8091, host: 8091
     ubuntu14_1.vm.provision "chef_solo" do |chef|
@@ -29,7 +29,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "ubuntu14_2" do |ubuntu14_2|
-    ubuntu14_2.vm.box = "Ubuntu14-2"
+    ubuntu14_2.vm.box = "Ubuntu14"
     ubuntu14_2.vm.network "private_network", ip: "192.168.50.3"
     ubuntu14_2.vm.network "forwarded_port", guest: 8091, host: 8092
     ubuntu14_2.vm.provision "chef_solo" do |chef|
@@ -45,7 +45,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   end
 
   config.vm.define "ubuntu14_3" do |ubuntu14_3|
-    ubuntu14_3.vm.box = "Ubuntu14-3"
+    ubuntu14_3.vm.box = "Ubuntu14"
     ubuntu14_3.vm.network "private_network", ip: "192.168.50.4"
     ubuntu14_3.vm.network "forwarded_port", guest: 8091, host: 8093
     ubuntu14_3.vm.provision "chef_solo" do |chef|
