@@ -19,3 +19,5 @@ Tested using the Ubuntu 14 LTS virtualbox "box" from https://oss-binaries.phusio
 The three nodes are configured to use the IP Addresses: `192.168.50.2`, `192.168.50.3`, and `192.168.50.4`.
 
 You can SSH to these nodes using the defaultm username: `vagrant` and password: `vagrant`.
+
+The Consul UI is accessible at `http://192.168.50.2:8500/ui/` (as well the other IP Addresses).
