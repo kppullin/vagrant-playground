@@ -18,9 +18,9 @@ include_recipe 'ark::default'
 install_version = [node['consul']['version'], 'web_ui'].join('_')
 install_checksum = node['consul']['checksums'].fetch(install_version)
 
-ark 'consul_ui' do
-  path node['consul']['data_dir']
-  home_dir node['consul']['ui_dir']
+ark ::File.basename(node['consul']['ui_dir']) do
+  prefix_root node['consul']['data_dir']
+  prefix_home ::File.dirname(node['consul']['ui_dir'])
   version node['consul']['version']
   checksum install_checksum
   url ::URI.join(node['consul']['base_url'], "#{install_version}.zip").to_s
