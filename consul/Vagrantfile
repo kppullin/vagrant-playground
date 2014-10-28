@@ -14,10 +14,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "n1" do |n1|
     n1.vm.box = "Ubuntu14"
     n1.vm.network "private_network", ip: "192.168.50.2"
-    n1.vm.network "forwarded_port", guest: 8091, host: 8091
-    n1.vm.network "forwarded_port", guest: 8500, host: 8501
-    n1.vm.network "forwarded_port", guest: 8600, host: 8601
-    n1.vm.network "forwarded_port", guest: 8600, host: 8601, protocol: 'udp'
     n1.vm.provision "chef_solo" do |chef|
       chef.add_recipe "consul"
       chef.add_recipe "consul::ui"
@@ -39,10 +35,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "n2" do |n2|
     n2.vm.box = "Ubuntu14"
     n2.vm.network "private_network", ip: "192.168.50.3"
-    n2.vm.network "forwarded_port", guest: 8091, host: 8092
-    n2.vm.network "forwarded_port", guest: 8500, host: 8502
-    n2.vm.network "forwarded_port", guest: 8600, host: 8602
-    n2.vm.network "forwarded_port", guest: 8600, host: 8602, protocol: 'udp'
     n2.vm.provision "chef_solo" do |chef|
       chef.add_recipe "consul"
       chef.add_recipe "consul::ui"
@@ -64,10 +56,6 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.define "n3" do |n3|
     n3.vm.box = "Ubuntu14"
     n3.vm.network "private_network", ip: "192.168.50.4"
-    n3.vm.network "forwarded_port", guest: 8091, host: 8093
-    n3.vm.network "forwarded_port", guest: 8500, host: 8503
-    n3.vm.network "forwarded_port", guest: 8600, host: 8603
-    n3.vm.network "forwarded_port", guest: 8600, host: 8603, protocol: 'udp'
     n3.vm.provision "chef_solo" do |chef|
       chef.add_recipe "consul"
       chef.add_recipe "consul::ui"
