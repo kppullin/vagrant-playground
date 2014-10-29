@@ -12,105 +12,39 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   # Every Vagrant virtual environment requires a box to build off of.
   #config.vm.box = "Ubuntu14-Cluster"
 
-  config.vm.define "n1" do |n1|
-    n1.vm.box = "Ubuntu14"
-    n1.vm.network "private_network", ip: "192.168.50.2"
-    n1.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "java"
-      chef.add_recipe "scala"
-      chef.add_recipe "zookeeper"
-      chef.add_recipe "kafka"
-      chef.json = { 
-        :java => {
-          :jdk_version => "7"
-        },
-        :scala => {
-          :version => "2.9.2",
-          :checksum => "862c93482f001e0fb7dc6d4fb04e23f8ae9f594e01e3d6f93adf43c1ff853a68"
-        },
-        :zookeeper => {
-          "zoo.cfg" => {
-            "server.1" => "192.168.50.2:2888:3888",
-            "server.2" => "192.168.50.3:2888:3888",
-            "server.3" => "192.168.50.4:2888:3888"
-          }
-        },
-        :kafka => {
-          :broker => {
-            :broker_id => "1",
-            :host_name => "192.168.50.2",
-            :zookeeper_connect => "192.168.50.2:2181,192.168.50.3:2181,192.168.50.4:2181"
-          }
-        }
-      }
-    end
-  end
-
-  config.vm.define "n2" do |n2|
-    n2.vm.box = "Ubuntu14"
-    n2.vm.network "private_network", ip: "192.168.50.3"
-    n2.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "java"
-      chef.add_recipe "scala"
-      chef.add_recipe "zookeeper"
-      chef.add_recipe "kafka"
-      chef.json = { 
-        :java => {
-          :jdk_version => "7"
-        },
-        :scala => {
-          :version => "2.9.2",
-          :checksum => "862c93482f001e0fb7dc6d4fb04e23f8ae9f594e01e3d6f93adf43c1ff853a68"
-        },
-        :zookeeper => {
-          "zoo.cfg" => {
-            "server.1" => "192.168.50.2:2888:3888",
-            "server.2" => "192.168.50.3:2888:3888",
-            "server.3" => "192.168.50.4:2888:3888"
-          }
-        },
-        :kafka => {
-          :broker => {
-            :broker_id => "2",
-            :host_name => "192.168.50.3",
-            :zookeeper_connect => "192.168.50.2:2181,192.168.50.3:2181,192.168.50.4:2181"
+  ["1", "2", "3"].each do |i|
+    config.vm.define "n#{i}" do |node|
+      node.vm.box = "Ubuntu14"
+      node.vm.network "private_network", ip: "192.168.50.1#{i}"
+      node.vm.provision "chef_solo" do |chef|
+        chef.add_recipe "java"
+        chef.add_recipe "scala"
+        chef.add_recipe "zookeeper"
+        chef.add_recipe "kafka"
+        chef.json = { 
+          :java => {
+            :jdk_version => "7"
+          },
+          :scala => {
+            :version => "2.9.2",
+            :checksum => "862c93482f001e0fb7dc6d4fb04e23f8ae9f594e01e3d6f93adf43c1ff853a68"
+          },
+          :zookeeper => {
+            "zoo.cfg" => {
+              "server.1" => "192.168.50.11:2888:3888",
+              "server.2" => "192.168.50.12:2888:3888",
+              "server.3" => "192.168.50.13:2888:3888"
+            }
+          },
+          :kafka => {
+            :broker => {
+              :broker_id => "1",
+              :host_name => "192.168.50.1#{i}",
+              :zookeeper_connect => "192.168.50.11:2181,192.168.50.12:2181,192.168.50.13:2181"
+            }
           }
         }
-      }
-    end
-  end
-
-  config.vm.define "n3" do |n3|
-    n3.vm.box = "Ubuntu14"
-    n3.vm.network "private_network", ip: "192.168.50.4"
-    n3.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "java"
-      chef.add_recipe "scala"
-      chef.add_recipe "zookeeper"
-      chef.add_recipe "kafka"
-      chef.json = { 
-        :java => {
-          :jdk_version => "7"
-        },
-        :scala => {
-          :version => "2.9.2",
-          :checksum => "862c93482f001e0fb7dc6d4fb04e23f8ae9f594e01e3d6f93adf43c1ff853a68"
-        },
-        :zookeeper => {
-          "zoo.cfg" => {
-            "server.1" => "192.168.50.2:2888:3888",
-            "server.2" => "192.168.50.3:2888:3888",
-            "server.3" => "192.168.50.4:2888:3888"
-          }
-        },
-        :kafka => {
-          :broker => {
-            :broker_id => "3",
-            :host_name => "192.168.50.4",
-            :zookeeper_connect => "192.168.50.2:2181,192.168.50.3:2181,192.168.50.4:2181"
-          }
-        }
-      }
+      end
     end
   end
 

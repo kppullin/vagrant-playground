@@ -11,66 +11,26 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   
-  config.vm.define "n1" do |n1|
-    n1.vm.box = "Ubuntu14"
-    n1.vm.network "private_network", ip: "192.168.50.2"
-    n1.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "consul"
-      chef.add_recipe "consul::ui"
-      chef.json = {
-        :consul => {
-          :bind_interface => "eth1",
-          :bootstrap_expect => 3,
-          :node_name => "n1",
-          :servers => ["192.168.50.2", "192.168.50.3", "192.168.50.4"],
-          :service_mode => "cluster",
+  ["1", "2", "3"].each do |i|
+    config.vm.define "n#{i}" do |node|
+      node.vm.box = "Ubuntu14"
+      node.vm.network "private_network", ip: "192.168.50.1#{i}"
+      node.vm.provision "chef_solo" do |chef|
+        chef.add_recipe "consul"
+        chef.add_recipe "consul::ui"
+        chef.json = {
+          :consul => {
+            :bind_interface => "eth1",
+            :bootstrap_expect => 3,
+            :node_name => "n#{i}",
+            :servers => ["192.168.50.11", "192.168.50.12", "192.168.50.13"],
+            :service_mode => "cluster",
 
-          :client_interface => "eth1",
-          :serve_ui => "true"
+            :client_interface => "eth1",
+            :serve_ui => "true"
+          }
         }
-      }
-    end
-  end
-
-  config.vm.define "n2" do |n2|
-    n2.vm.box = "Ubuntu14"
-    n2.vm.network "private_network", ip: "192.168.50.3"
-    n2.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "consul"
-      chef.add_recipe "consul::ui"
-      chef.json = {
-        :consul => {
-          :bind_interface => "eth1",
-          :bootstrap_expect => "3",
-          :node_name => "n2",
-          :servers => ["192.168.50.2", "192.168.50.3", "192.168.50.4"],
-          :service_mode => "cluster",
-
-          :client_interface => "eth1",
-          :serve_ui => "true"
-        }
-      }
-    end
-  end
-
-  config.vm.define "n3" do |n3|
-    n3.vm.box = "Ubuntu14"
-    n3.vm.network "private_network", ip: "192.168.50.4"
-    n3.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "consul"
-      chef.add_recipe "consul::ui"
-      chef.json = {
-        :consul => {
-          :bind_interface => "eth1",
-          :bootstrap_expect => "3",
-          :node_name => "n3",
-          :servers => ["192.168.50.2", "192.168.50.3", "192.168.50.4"],
-          :service_mode => "cluster",
-
-          :client_interface => "eth1",
-          :serve_ui => "true"
-        }
-      }
+      end
     end
   end
 

@@ -11,48 +11,20 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   # Every Vagrant virtual environment requires a box to build off of.
   
-  config.vm.define "n1" do |n1|
-    n1.vm.box = "Ubuntu14"
-    n1.vm.network "private_network", ip: "192.168.50.2"
-    n1.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "couchbase::server"
-      chef.json = {
-        :couchbase => {
-          :server => {
-            :password => "vagrant"
+  ["1", "2", "3"].each do |i|
+    config.vm.define "n#{i}" do |node|
+      node.vm.box = "Ubuntu14"
+      node.vm.network "private_network", ip: "192.168.50.1#{i}"
+      node.vm.provision "chef_solo" do |chef|
+        chef.add_recipe "couchbase::server"
+        chef.json = {
+          :couchbase => {
+            :server => {
+              :password => "vagrant"
+            }
           }
         }
-      }
-    end
-  end
-
-  config.vm.define "n2" do |n2|
-    n2.vm.box = "Ubuntu14"
-    n2.vm.network "private_network", ip: "192.168.50.3"
-    n2.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "couchbase::server"
-      chef.json = {
-        :couchbase => {
-          :server => {
-            :password => "vagrant"
-          }
-        }
-      }
-    end
-  end
-
-  config.vm.define "n3" do |n3|
-    n3.vm.box = "Ubuntu14"
-    n3.vm.network "private_network", ip: "192.168.50.4"
-    n3.vm.provision "chef_solo" do |chef|
-      chef.add_recipe "couchbase::server"
-      chef.json = {
-        :couchbase => {
-          :server => {
-            :password => "vagrant"
-          }
-        }
-      }
+      end
     end
   end
 
