@@ -28,7 +28,13 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
             }
           },
           :elasticsearch => {
-            :version => "1.4.0"
+            :version => "1.4.0",
+            :network => {
+              :host => "192.168.50.1#{i}"
+            },
+            :node => {
+              :name ="es-node-#{i}"
+            }
           }
         }
       end
