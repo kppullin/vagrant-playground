@@ -33,7 +33,7 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
               :host => "192.168.50.1#{i}"
             },
             :node => {
-              :name ="es-node-#{i}"
+              :name => "es-node-#{i}"
             }
           }
         }
