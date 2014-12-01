@@ -11,7 +11,7 @@ Tested using the Ubuntu 14 LTS virtualbox "box" from https://oss-binaries.phusio
   - `vagrant box add Ubuntu14 https://oss-binaries.phusionpassenger.com/vagrant/boxes/latest/ubuntu-14.04-amd64-vbox.box`
   
 - Run vagrant
-  - `cd /path/to/vagrant-playground/couchbase`
+  - `cd /path/to/vagrant-playground/consul`
   - `vagrant up`
 
 ## Notes
